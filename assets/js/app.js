@@ -7,7 +7,7 @@ let clearCompleted = document.querySelector(".clear-complete-btn");
 let regex = /[a-z0-9]/gi;
 
 //Event listeners
-
+document.addEventListener("DOMContentLoaded", getTodosFromLocalStorage);
 todoInput.addEventListener("keyup", addTodo);
 todoList.addEventListener("click", deleteCheckEdit);
 filter.addEventListener("click", filteredResult);
@@ -37,6 +37,9 @@ function addTodo(event) {
       newTodo.value = todoInput.value;
       todoDiv.appendChild(newTodo);
 
+      //Add todo to the local storage
+      saveTodosInLocalStorage(todoInput.value);
+
       //Edit button
       const editButton = document.createElement("button");
       editButton.textContent = "Edit";
@@ -63,6 +66,7 @@ function deleteCheckEdit(event) {
   //Delete btn to remove todo item
   if (item.classList[0] === "delete-btn") {
     item.parentElement.remove();
+    removeTodosFromLocalStorage(item.parentElement);
   }
 
   //Complete btn to mark todo item
@@ -158,4 +162,63 @@ function clearAllCompleted() {
     length--;
   }
   countActiveItems();
+}
+
+function saveTodosInLocalStorage(todo) {
+  let todos = checkTodos();
+  todos.push(todo);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function getTodosFromLocalStorage() {
+  let todos = checkTodos();
+  todos.forEach((todo) => {
+    //Creating todo div
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todo");
+
+    //Checkbox Button
+    const completeButton = document.createElement("input");
+    completeButton.setAttribute("type", "checkbox");
+    completeButton.classList.add("complete-btn");
+    todoDiv.appendChild(completeButton);
+
+    //Todo element
+    const newTodo = document.createElement("input");
+    newTodo.disabled = true;
+    newTodo.classList.add("todo-item");
+    newTodo.value = todo;
+    todoDiv.appendChild(newTodo);
+
+    //Edit button
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.classList.add("edit-btn");
+    todoDiv.appendChild(editButton);
+
+    //Delete Button
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-btn");
+    todoDiv.appendChild(deleteButton);
+
+    //Appending to the ul todo-list
+    const todoList = document.querySelector(".todo-list");
+    todoList.appendChild(todoDiv);
+  });
+}
+function removeTodosFromLocalStorage(todo) {
+  let todos = checkTodos();
+  const todoItem = todo.childNodes[1].value;
+  todos.splice(todos.indexOf(todoItem), 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function checkTodos() {
+  let todos;
+  if (localStorage.getItem("todos") === null) {
+    todos = [];
+  } else {
+    todos = JSON.parse(localStorage.getItem("todos"));
+  }
+  return todos;
 }
