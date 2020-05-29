@@ -2,9 +2,10 @@
 let todoInput = document.querySelector(".todo-input ");
 let todoList = document.querySelector(".todo-list");
 let filter = document.querySelector(".filters");
-const completeAllOption = document.querySelector("#mark-all");
-const clearCompleted = document.querySelector(".clear-complete-btn");
+let completeAllOption = document.querySelector("#mark-all");
+let clearCompleted = document.querySelector(".clear-complete-btn");
 let regex = /[a-z0-9]/gi;
+let todoItem = "";
 
 //Event listeners
 
@@ -13,8 +14,15 @@ todoList.addEventListener("click", deleteCheck);
 filter.addEventListener("click", filteredResult);
 completeAllOption.addEventListener("click", completeAllFilter);
 clearCompleted.addEventListener("click", clearAllCompleted);
+// console.log(todoItem);
+
+if (todoItem) {
+  console.log(todoItem);
+  // todoItem.addEventListener("dblclick", updateTodo);
+}
 
 //Functions
+countActiveItems();
 
 function addTodo(event) {
   if (event.keyCode === 13 || event.which === 13) {
@@ -31,6 +39,8 @@ function addTodo(event) {
 
       //Todo element
       const newTodo = document.createElement("li");
+
+      // const newTodo = document.createElement("input");
       newTodo.classList.add("todo-item");
       newTodo.textContent = todoInput.value;
       todoDiv.appendChild(newTodo);
@@ -45,6 +55,8 @@ function addTodo(event) {
       const todoList = document.querySelector(".todo-list");
       todoList.appendChild(todoDiv);
       todoInput.value = "";
+
+      todoItem = document.querySelector(".todo-item");
     }
     countActiveItems();
   }
@@ -54,7 +66,6 @@ function deleteCheck(event) {
   const item = event.target;
 
   //Delete btn to remove todo item
-  console.log(event.target);
   if (item.classList[0] === "delete-btn") {
     item.parentElement.remove();
     countActiveItems();
@@ -94,31 +105,32 @@ function filteredResult(event) {
   });
 }
 
+//Function to mark / unmark all todo as complete or incomplete
 function completeAllFilter(event) {
   const todoItems = todoList.childNodes;
 
   todoItems.forEach((todo) => {
-    // if (todo.childNodes[0].checked) {
-    //   todo.childNodes[0].checked = false;
-    //   todo.classList.toggle("completed");
-    // } else {
-    console.log(todo);
-    // todo..classList("complete-btn").checked = true;
-    //   todo.classList.toggle("completed");
-    // }
-    todo.classList.toggle("completed");
+    if (completeAllOption.checked) {
+      todo.childNodes[0].checked = true;
+      todo.className = "todo completed";
+    } else {
+      todo.childNodes[0].checked = false;
+      todo.className = "todo";
+    }
   });
-  //   todoList.classList.toggle("completed");
+  countActiveItems();
 }
 
 //Function to count all the active todo
 function countActiveItems() {
-  let activeItems = document.querySelectorAll(".completed");
+  let completedItems = document.querySelectorAll(".completed");
   let allItems = document.querySelectorAll(".todo");
-  let result = allItems.length - activeItems.length;
+  let activeItems = allItems.length - completedItems.length;
   let counter = document.querySelector(".active-todo-counter");
+
+  clearCompleted.style.display = completedItems.length > 0 ? "flex" : "none";
   counter.textContent =
-    result > 1 ? `${result} items left` : `${result} item left`;
+    activeItems > 1 ? `${activeItems} items left` : `${activeItems} item left`;
 }
 
 //Function to clear all the completed todo
@@ -129,4 +141,8 @@ function clearAllCompleted() {
     completed[length - 1].remove();
     length--;
   }
+}
+
+function updateTodo(event) {
+  console.log("hello"); //, event.target);
 }

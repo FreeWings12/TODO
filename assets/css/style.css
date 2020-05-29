@@ -197,10 +197,10 @@ button.filter:hover {
     cursor: pointer;
 }
 
-.todo-count {
+.active-todo-counter {
     padding: 0 1rem;
     margin: 0 0.3rem;
-    border: 3px dotted rgb(149, 243, 149);
     border-radius: 6px;
-    background-color: rgb(187, 243, 187)
+    background-color: tomato;
+    color: #fff;
 }
