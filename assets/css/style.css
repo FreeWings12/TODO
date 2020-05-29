@@ -63,9 +63,7 @@ button {
     height: 2.5rem;
     font-size: 2.2rem;
     position: relative;
-    top: 0.5rem;
     text-align: center;
-    /* background: none; */
     transform: rotate(90deg);
     -webkit-appearance: none;
     appearance: none;
@@ -76,7 +74,6 @@ button {
     content: ">";
     font-size: 3rem;
     color: #979292;
-    /* display: none; */
 }
 
 #mark-all:checked:before {
@@ -175,11 +172,11 @@ button {
     opacity: 0.5;
 }
 
-.completed input {
+/* .completed input {
     content: '\2713';
     font-size: 3rem;
     color: rgb(3, 139, 3);
-}
+} */
 
 .filters {
     display: flex;
@@ -198,4 +195,12 @@ button.filter:hover {
     border-radius: 10px;
     color: white;
     cursor: pointer;
+}
+
+.todo-count {
+    padding: 0 1rem;
+    margin: 0 0.3rem;
+    border: 3px dotted rgb(149, 243, 149);
+    border-radius: 6px;
+    background-color: rgb(187, 243, 187)
 }

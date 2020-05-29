@@ -1,49 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" />
     <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="container">
-      <header id="header">
-        <h1>Todos</h1>
-        <div class="input-and-mark-all">
-          <input type="checkbox" id="mark-all" />
-          <input
-            type="text"
-            placeholder="Add Todo"
-            class="todo-input"
-            autofocus
-          />
-        </div>
-      </header>
-      <section class="todo-section">
-        <div class="todo-container">
-          <ul class="todo-list"></ul>
-        </div>
-      </section>
+        <header id="header">
+            <h1>Todos</h1>
+            <div class="todo-input-and-mark-all">
+                <input type="checkbox" id="mark-all" />
+                <input type="text" placeholder="Add Todo" class="todo-input" autofocus />
+            </div>
+        </header>
+        <section class="todo-section">
+            <div class="todo-container">
+                <ul class="todo-list"></ul>
+            </div>
+        </section>
 
-      <section>
-        <div class="filters">
-          <button class="filter all-btn" value="all">All</button>
-          <button class="filter completedall-btn" value="completed">
-            Completed
-          </button>
-          <button class="filter active-btn" value="active">Active</button>
-          <button class="filter clear-complete-btn" value="clear">
-            Clear Completed
-          </button>
-        </div>
-      </section>
+        <section>
+            <div class="filters">
+                <span class="active-todo-counter">0 item left</span>
+                <button class="filter all-btn" value="all">All</button>
+                <button class="filter completedall-btn" value="completed">
+                    Completed
+                </button>
+                <button class="filter active-btn" value="active">Active</button>
+                <button class="filter clear-complete-btn" value="clear">
+                    Clear Completed
+                </button>
+            </div>
+        </section>
     </div>
     <script src="./assets/js/app.js"></script>
-  </body>
+</body>
+
 </html>
