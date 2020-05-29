@@ -81,12 +81,14 @@ function deleteCheckEdit(event) {
     let editInput = todoItem.childNodes[1];
     editInput.disabled = false;
     editInput.focus();
+    let previousValue = editInput.value;
 
     editInput.addEventListener("keyup", (event) => {
       if (event.keyCode === 13) {
         if (regex.test(editInput.value)) {
           editInput.value = editInput.value;
           editInput.disabled = true;
+          editTodoInLocalStorage(previousValue, editInput.value);
         }
       }
     });
@@ -210,6 +212,12 @@ function removeTodosFromLocalStorage(todo) {
   let todos = checkTodos();
   const todoItem = todo.childNodes[1].value;
   todos.splice(todos.indexOf(todoItem), 1);
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+function editTodoInLocalStorage(previousItem, newTodo) {
+  let todos = checkTodos();
+  todos.splice(todos.indexOf(previousItem), 1, newTodo);
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
