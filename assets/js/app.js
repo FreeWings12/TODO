@@ -5,28 +5,21 @@ let filter = document.querySelector(".filters");
 let completeAllOption = document.querySelector("#mark-all");
 let clearCompleted = document.querySelector(".clear-complete-btn");
 let regex = /[a-z0-9]/gi;
-let todoItem = "";
 
 //Event listeners
 
 todoInput.addEventListener("keyup", addTodo);
-todoList.addEventListener("click", deleteCheck);
+todoList.addEventListener("click", deleteCheckEdit);
 filter.addEventListener("click", filteredResult);
 completeAllOption.addEventListener("click", completeAllFilter);
 clearCompleted.addEventListener("click", clearAllCompleted);
-// console.log(todoItem);
-
-if (todoItem) {
-  console.log(todoItem);
-  // todoItem.addEventListener("dblclick", updateTodo);
-}
 
 //Functions
 countActiveItems();
 
 function addTodo(event) {
-  if (event.keyCode === 13 || event.which === 13) {
-    if (todoInput.value.length > 0 && regex.test(todoInput.value)) {
+  if (event.keyCode === 13) {
+    if (regex.test(todoInput.value)) {
       //Creating todo div
       const todoDiv = document.createElement("div");
       todoDiv.classList.add("todo");
@@ -38,12 +31,22 @@ function addTodo(event) {
       todoDiv.appendChild(completeButton);
 
       //Todo element
-      const newTodo = document.createElement("li");
+      // const newTodo = document.createElement("li");
+      // newTodo.classList.add("todo-item");
+      // newTodo.textContent = todoInput.value;
+      // todoDiv.appendChild(newTodo);
 
-      // const newTodo = document.createElement("input");
+      const newTodo = document.createElement("input");
+      newTodo.disabled = true;
       newTodo.classList.add("todo-item");
-      newTodo.textContent = todoInput.value;
+      newTodo.value = todoInput.value;
       todoDiv.appendChild(newTodo);
+
+      //Edit button
+      const editButton = document.createElement("button");
+      editButton.textContent = "Edit";
+      editButton.classList.add("edit-btn");
+      todoDiv.appendChild(editButton);
 
       //Delete Button
       const deleteButton = document.createElement("button");
@@ -55,29 +58,43 @@ function addTodo(event) {
       const todoList = document.querySelector(".todo-list");
       todoList.appendChild(todoDiv);
       todoInput.value = "";
-
-      todoItem = document.querySelector(".todo-item");
     }
     countActiveItems();
   }
 }
 
-function deleteCheck(event) {
+function deleteCheckEdit(event) {
   const item = event.target;
 
   //Delete btn to remove todo item
   if (item.classList[0] === "delete-btn") {
     item.parentElement.remove();
-    countActiveItems();
   }
 
   //Complete btn to mark todo item
   if (item.classList[0] === "complete-btn") {
     const todoItem = item.parentElement;
     todoItem.classList.toggle("completed");
-    // item.style = "line-through";
-    countActiveItems();
   }
+
+  //Edit btn to update todo item
+  if (item.classList[0] === "edit-btn") {
+    const todoItem = item.parentElement;
+    let editInput = todoItem.childNodes[1];
+    editInput.disabled = false;
+    editInput.focus();
+
+    editInput.addEventListener("keyup", (event) => {
+      if (event.keyCode === 13) {
+        if (regex.test(editInput.value)) {
+          editInput.value = editInput.value;
+          editInput.disabled = true;
+        }
+      }
+    });
+  }
+
+  countActiveItems();
 }
 
 function filteredResult(event) {
@@ -141,8 +158,9 @@ function clearAllCompleted() {
     completed[length - 1].remove();
     length--;
   }
+  countActiveItems();
 }
 
 function updateTodo(event) {
-  console.log("hello"); //, event.target);
+  console.log(event.target); //, event.target);
 }
