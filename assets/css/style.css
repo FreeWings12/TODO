@@ -36,7 +36,7 @@ button {
 
 #header {
     display: flex;
-    flex-flow: column wrap;
+    flex-flow: column;
     justify-content: center;
     align-items: center;
     padding: 0.6rem;
@@ -100,12 +100,15 @@ button {
     justify-content: space-between;
     align-items: center;
     transition: all 0.5s ease;
+
 }
 
 .todo-item {
     padding: 0 1rem;
     flex: 1;
     font-size: 2.4rem;
+    color: #000;
+    word-break: break-all;
 }
 
 .complete-btn {

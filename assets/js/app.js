@@ -31,11 +31,6 @@ function addTodo(event) {
       todoDiv.appendChild(completeButton);
 
       //Todo element
-      // const newTodo = document.createElement("li");
-      // newTodo.classList.add("todo-item");
-      // newTodo.textContent = todoInput.value;
-      // todoDiv.appendChild(newTodo);
-
       const newTodo = document.createElement("input");
       newTodo.disabled = true;
       newTodo.classList.add("todo-item");
@@ -50,7 +45,6 @@ function addTodo(event) {
 
       //Delete Button
       const deleteButton = document.createElement("button");
-      // deleteButton.innerHTML = '<i class="fas fa-times"></i>';
       deleteButton.classList.add("delete-btn");
       todoDiv.appendChild(deleteButton);
 
@@ -97,6 +91,7 @@ function deleteCheckEdit(event) {
   countActiveItems();
 }
 
+//Function for all the filters
 function filteredResult(event) {
   const todoItems = todoList.childNodes;
   todoItems.forEach((todoItem) => {
@@ -145,7 +140,11 @@ function countActiveItems() {
   let activeItems = allItems.length - completedItems.length;
   let counter = document.querySelector(".active-todo-counter");
 
+  //Filter display
+  filter.style.display = allItems.length > 0 ? "flex" : "none";
+
   clearCompleted.style.display = completedItems.length > 0 ? "flex" : "none";
+
   counter.textContent =
     activeItems > 1 ? `${activeItems} items left` : `${activeItems} item left`;
 }
@@ -159,8 +158,4 @@ function clearAllCompleted() {
     length--;
   }
   countActiveItems();
-}
-
-function updateTodo(event) {
-  console.log(event.target); //, event.target);
 }
