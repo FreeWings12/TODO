@@ -73,6 +73,7 @@ function deleteCheckEdit(event) {
   if (item.classList[0] === "complete-btn") {
     const todoItem = item.parentElement;
     todoItem.classList.toggle("completed");
+    singleCompletedTodoInLocalStorage(todoItem);
   }
 
   //Edit btn to update todo item
@@ -126,16 +127,19 @@ function filteredResult(event) {
 //Function to mark / unmark all todo as complete or incomplete
 function completeAllFilter(event) {
   const todoItems = todoList.childNodes;
-
+  let isAllChecked = false;
   todoItems.forEach((todo) => {
     if (completeAllOption.checked) {
       todo.childNodes[0].checked = true;
       todo.className = "todo completed";
+      isAllChecked = true;
     } else {
       todo.childNodes[0].checked = false;
       todo.className = "todo";
+      isAllChecked = false;
     }
   });
+  markAllCompletedInLocalStorage(isAllChecked);
   countActiveItems();
 }
 
@@ -221,6 +225,24 @@ function editTodoInLocalStorage(previousItem, newTodo) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 
+function singleCompletedTodoInLocalStorage(todo) {
+  let completedTodos = checkCompletedTodos();
+  let isChecked = todo.childNodes[0].checked;
+  let item = todo.childNodes[1].value;
+  if (isChecked) {
+    completedTodos.push(item);
+  } else {
+    completedTodos.splice(completedTodos.indexOf(item), 1);
+  }
+  localStorage.setItem("completedTodos", JSON.stringify(completedTodos));
+  console.log(completedTodos);
+}
+function markAllCompletedInLocalStorage(isAllChecked) {
+  let todos = checkTodos();
+  let completedAll = isAllChecked ? [...todos] : [];
+  localStorage.setItem("completedTodos", JSON.stringify(completedAll));
+}
+
 function checkTodos() {
   let todos;
   if (localStorage.getItem("todos") === null) {
@@ -229,4 +251,14 @@ function checkTodos() {
     todos = JSON.parse(localStorage.getItem("todos"));
   }
   return todos;
+}
+
+function checkCompletedTodos() {
+  let completedTodos;
+  if (localStorage.getItem("completedTodos") === null) {
+    completedTodos = [];
+  } else {
+    completedTodos = JSON.parse(localStorage.getItem("completedTodos"));
+  }
+  return completedTodos;
 }
