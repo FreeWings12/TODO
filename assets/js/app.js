@@ -55,6 +55,7 @@ function addTodo(event) {
 
       //Todo element
       const newTodo = document.createElement("input");
+      newTodo.setAttribute("type", "text");
       newTodo.disabled = true;
       newTodo.classList.add("todo-item");
       newTodo.value = todoInput.value;
@@ -179,6 +180,10 @@ function countActiveItems() {
 
   counter.textContent =
     activeItems > 1 ? `${activeItems} items left` : `${activeItems} item left`;
+
+  if (allItems.length === 0 || completedItems.length === 0) {
+    completeAllOption.checked = false;
+  }
 }
 
 /*#####################################################
@@ -213,6 +218,7 @@ function getTodosFromLocalStorage() {
 
     //Todo element
     const newTodo = document.createElement("input");
+    newTodo.setAttribute("type", "text");
     newTodo.disabled = true;
     newTodo.classList.add("todo-item");
     newTodo.value = todo.name;
@@ -226,6 +232,7 @@ function getTodosFromLocalStorage() {
 
     //Delete Button
     const deleteButton = document.createElement("button");
+    // deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
     deleteButton.classList.add("delete-btn");
     todoDiv.appendChild(deleteButton);
 
