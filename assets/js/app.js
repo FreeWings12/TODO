@@ -174,9 +174,9 @@ function countActiveItems() {
     let counter = document.querySelector(".active-todo-counter");
 
     //Filter display
-    filter.style.display = allItems.length > 0 ? "flex" : "none";
+    filter.style.display = allItems.length > 0 ? "grid" : "none";
 
-    clearCompleted.style.display = completedItems.length > 0 ? "flex" : "none";
+    clearCompleted.style.display = completedItems.length > 0 ? "grid" : "none";
 
     counter.textContent =
         activeItems > 1 ? `${activeItems} items left` : `${activeItems} item left`;

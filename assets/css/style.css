@@ -217,13 +217,39 @@ div.todo-input-and-mark-all {
 
 
 .filters {
-    display: flex;
+    display: grid;
     justify-content: center;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-areas:
+        "counter allItems completed activeItems clearCompleted";
     margin: 1rem;
     margin-top: 3rem;
     padding: 1rem;
 }
 
+.filters span {
+    text-align: center;
+}
+
+.active-todo-counter {
+    grid-area: counter;
+}
+
+.all-btn {
+    grid-area: allItems;
+}
+
+.completed-all-btn {
+    grid-area: completed;
+}
+
+.active-btn {
+    grid-area: activeItems;
+}
+
+.clear-complete-btn {
+    grid-area: clearCompleted;
+}
 
 button.filter {
     font-size: 1.6rem;
@@ -415,6 +441,21 @@ button.clear-complete-btn:hover {
 
 }
 
+@media (max-width: 1100px) {
+    .filters {
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(4, 1fr);
+        row-gap: 2rem;
+        grid-template-areas:
+            "counter allItems completed activeItems"
+            ". clearCompleted clearCompleted .";
+        margin: 1rem;
+        margin-top: 3rem;
+        padding: 1rem;
+    }
+
+}
 
 
 @media (max-width: 700px) {
@@ -527,12 +568,12 @@ button.clear-complete-btn:hover {
 
     }
 
-    .filters {
+    /* .filters {
         display: flex;
         justify-content: space-between;
         margin: 0.5rem;
         margin-top: 3rem;
-    }
+    } */
 
     .filters .filter {
         font-size: 1.4rem;
@@ -685,29 +726,28 @@ button.clear-complete-btn:hover {
 
     }
 
-    #footer div.filters {
-        display: grid;
-    }
+
 
     #footer div.filters {
         display: grid;
         justify-content: space-between;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-template-rows: 1fr 1fr;
         grid-template-areas:
-            "counter allItems completed activeItems"
-            " . clearCompleted clearCompleted .";
+            "counter clearCompleted clearCompleted"
+            " allItems completed activeItems";
+
         /* width: 100%; */
         margin: 0.5rem;
         margin-top: 3rem;
     }
 
     .filters .filter {
-        font-size: 1.1rem;
+        font-size: 1.4rem;
     }
 
     .filters span {
-        font-size: 1.1rem;
+        font-size: 1.4rem;
     }
 
     .active-todo-counter {
