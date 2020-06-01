@@ -711,7 +711,6 @@ button.clear-complete-btn:hover {
         -ms-transition: all 0.2s;
         -o-transition: all 0.2s;
         transition: all 0.2s;
-        /* display: none; */
     }
 
     .delete-btn:hover {
@@ -736,8 +735,6 @@ button.clear-complete-btn:hover {
         grid-template-areas:
             "counter clearCompleted clearCompleted"
             " allItems completed activeItems";
-
-        /* width: 100%; */
         margin: 0.5rem;
         margin-top: 3rem;
     }
