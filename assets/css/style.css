@@ -672,13 +672,13 @@ button.clear-complete-btn:hover {
         appearance: none;
         border: 1px solid rgb(17, 17, 17);
         border-radius: 50%;
+        text-align: center;
     }
 
     .complete-btn:checked:after {
         content: '\2713';
-        font-size: 1.3rem;
+        font-size: 1.2rem;
         color: rgb(3, 139, 3);
-        padding-left: 0.2rem;
     }
 
     .edit-btn {
