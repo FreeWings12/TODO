@@ -543,3 +543,9 @@ button.clear-complete-btn:hover {
     }
 
 }
+
+@media (max-width: 500px) {
+    .container {
+        width: 100vw;
+    }
+}
